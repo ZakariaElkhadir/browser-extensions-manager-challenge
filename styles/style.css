@@ -1,0 +1,18 @@
+
+body{
+    background-color: rgb(49, 49, 49);
+}
+#header-container{
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+}
+.header-bar{
+    
+    width: 70%;
+    background-color: hsl(200, 60%, 99%);
+    display: flex;
+    justify-content: space-between;
+    border-radius: 0.7em;
+    padding: 1em;
+}
