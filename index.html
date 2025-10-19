@@ -1,87 +1,94 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- displays site properly based on user's device -->
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  <link rel="stylesheet" href="styles/style.css">
-  <title>Frontend Mentor | Browser extensions manager UI</title>
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="./assets/images/favicon-32x32.png"
+        />
+        <link rel="stylesheet" href="styles/style.css" />
+        <title>Frontend Mentor | Browser extensions manager UI</title>
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
-  <header id="header-container">
-    <div class="header-bar">
-      <img src="assets/images/logo.svg" alt="Extensions logo">
-      <img src="assets/images/icon-moon.svg" alt="dark mode button ">
-    </div>
-  </header>
-<main></main>
+        <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+        <style>
+            .attribution {
+                font-size: 11px;
+                text-align: center;
+            }
 
-  Extensions List
+            .attribution a {
+                color: hsl(228, 45%, 44%);
+            }
+        </style>
+    </head>
 
-  All
-  Active
-  Inactive
+    <body>
+        <header id="header-container">
+            <div class="header-bar">
+                <img src="assets/images/logo.svg" alt="Extensions logo" />
+                <img
+                    class="dark-mode-icon"
+                    src="assets/images/icon-moon.svg"
+                    alt="dark mode button "
+                />
+            </div>
+        </header>
+        <main>
+            <div class="extension-list">
+                <h2>Extensions List</h2>
+                <div class="filter-extensions">
+                    <button data-filter="all" class="filter-btn active">
+                        All
+                    </button>
+                    <button data-filter="active" class="filter-btn">
+                        Active
+                    </button>
+                    <button data-filter="inactive" class="filter-btn">
+                        Inactive
+                    </button>
+                </div>
+            </div>
 
-  <!-- If you plan to use the JSON file to populate the data dynamically, you can delete the content below -->
-
-  DevLens
-  Quickly inspect page layouts and visualize element boundaries.
-  Remove
-
-  StyleSpy
-  Instantly analyze and copy CSS from any webpage element.
-  Remove
-
-  SpeedBoost
-  Optimizes browser resource usage to accelerate page loading.
-  Remove
-
-  JSONWizard
-  Formats, validates, and prettifies JSON responses in-browser.
-  Remove
-
-  TabMaster Pro
-  Organizes browser tabs into groups and sessions.
-  Remove
-
-  ViewportBuddy
-  Simulates various screen resolutions directly within the browser.
-  Remove
-
-  Markup Notes
-  Enables annotation and notes directly onto webpages for collaborative debugging.
-  Remove
-
-  GridGuides
-  Overlay customizable grids and alignment guides on any webpage.
-  Remove
-
-  Palette Picker
-  Instantly extracts color palettes from any webpage.
-  Remove
-
-  LinkChecker
-  Scans and highlights broken links on any page.
-  Remove
-
-  DOM Snapshot
-  Capture and export DOM structures quickly.
-  Remove
-
-  ConsolePlus
-  Enhanced developer console with advanced filtering and logging.
-  Remove
-
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+            <!-- Container for dynamically generated extensions -->
+            <div id="extensions-container" class="extensions-grid"></div>
+            <!-- Template for extension cards (hidden)
+     here i used js to inject the data to avoid repetition (DRY principle) -->
+            <template id="extension-template">
+                <div class="extension-card" data-id="">
+                    <div class="extension-header">
+                        <img class="extension-icon" src="" alt="" />
+                        <div class="extension-info">
+                            <h3 class="extension-name"></h3>
+                            <p class="extension-description"></p>
+                        </div>
+                    </div>
+                    <div class="extension-actions">
+                        <button class="remove-button">Remove</button>
+                        <div class="toggle-switch">
+                            <label class="switch">
+                                <input type="checkbox" class="status-toggle" />
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </main>
+        <div class="attribution">
+            Challenge by
+            <a href="https://www.frontendmentor.io?ref=challenge"
+                >Frontend Mentor</a
+            >. Coded by <a href="#">ZakariaElkhadir.com</a>.
+        </div>
+        <!-- adding script at the end of html file is a good practice for performance
+   because it allows the HTML to load first before the JavaScript is executed
+   zakaria elkhadir
+  -->
+        <script src="main.js"></script>
+    </body>
 </html>

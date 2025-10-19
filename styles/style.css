@@ -1,18 +1,574 @@
+@import "normalizer.css";
 
-body{
-    background-color: rgb(49, 49, 49);
+/* CSS Variables from Style Guide */
+:root {
+    /* Neutral Colors */
+    --neutral-900: hsl(227, 75%, 14%);
+    --neutral-800: hsl(226, 25%, 17%);
+    --neutral-700: hsl(225, 23%, 24%);
+    --neutral-600: hsl(226, 11%, 37%);
+    --neutral-300: hsl(0, 0%, 78%);
+    --neutral-200: hsl(217, 61%, 90%);
+    --neutral-100: hsl(0, 0%, 93%);
+    --neutral-0: hsl(200, 60%, 99%);
+
+    /* Red Colors */
+    --red-400: hsl(3, 86%, 64%);
+    --red-500: hsl(3, 71%, 56%);
+    --red-700: hsl(3, 77%, 44%);
+
+    /* Gradients */
+    --light-gradient: linear-gradient(180deg, #ebf2fc 0%, #eef8f9 100%);
+    --dark-gradient: linear-gradient(180deg, #040918 0%, #091540 100%);
+
+    /* Typography */
+    --font-family: "Noto Sans", sans-serif;
+    --font-size-body: 16px;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+
+    /* Layout Breakpoints */
+    --mobile-width: 375px;
+    --desktop-width: 1440px;
+
+    /* Animation Variables */
+    --animation-fast: 0.2s;
+    --animation-normal: 0.3s;
+    --animation-slow: 0.5s;
+    --bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --smooth-timing: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Theme Variables - Light Mode (Default) */
+    --bg-body: var(--light-gradient);
+    --bg-header: var(--neutral-0);
+    --bg-card: var(--neutral-0);
+    --bg-button: var(--neutral-0);
+    --bg-button-active: var(--neutral-200);
+    --text-primary: var(--neutral-900);
+    --text-secondary: var(--neutral-600);
+    --text-button: var(--neutral-900);
+    --text-button-active: var(--neutral-0);
+    --border-color: var(--neutral-600);
+    --shadow-color: rgba(0, 0, 0, 0.1);
 }
-#header-container{
+[data-theme="dark"] {
+    /* Dark Mode Theme Overrides */
+    --bg-body: var(--dark-gradient);
+    --bg-header: var(--neutral-800);
+    --bg-card: var(--neutral-800);
+    --bg-button: var(--neutral-700);
+    --bg-button-active: var(--neutral-600);
+    --text-primary: var(--neutral-0);
+    --text-secondary: var(--neutral-300);
+    --text-button: var(--neutral-0);
+    --text-button-active: var(--neutral-900);
+    --border-color: var(--neutral-300);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+
+    /* Color adjustments for dark mode */
+    --red-hover: var(--red-400);
+}
+body {
+    font-family: var(--font-family);
+    background-image: var(--bg-body);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    min-height: 100vh;
+    color: var(--text-primary);
+
+    transition:
+        background-image var(--animation-normal) ease,
+        color var(--animation-normal) ease;
+    animation: fadeIn var(--animation-slow) ease-out;
+}
+/*header*/
+#header-container {
     display: flex;
     justify-content: center;
     margin: 1em;
 }
-.header-bar{
-    
-    width: 70%;
-    background-color: hsl(200, 60%, 99%);
+.header-bar {
+    width: 82%;
+    background-color: var(--bg-header);
     display: flex;
     justify-content: space-between;
     border-radius: 0.7em;
     padding: 1em;
+    transition: all var(--animation-normal) var(--smooth-timing);
+    animation: slideDown var(--animation-slow) ease-out;
+    transform: translateY(0);
+}
+
+.header-bar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px var(--shadow-color);
+}
+.dark-mode-icon {
+    background-color: var(--bg-button);
+    padding: 10px;
+    border-radius: 15%;
+    border: solid 1px var(--red-500);
+    transition: all var(--animation-normal) var(--bounce-timing);
+}
+.dark-mode-icon:hover {
+    cursor: pointer;
+    border: solid 1px var(--red-700);
+    background-color: var(--bg-button-active);
+    transform: scale(1.05) rotate(15deg);
+}
+
+.dark-mode-icon:active {
+    transform: scale(0.95) rotate(0deg);
+    transition: transform 0.1s ease;
+}
+/*extenstions list*/
+.extension-list {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 11.5em;
+    margin-right: 11.5em;
+}
+.extension-list h2 {
+    font-size: 2.5em;
+    color: var(--text-primary);
+    margin: 0;
+    animation: slideInLeft var(--animation-slow) ease-out;
+}
+.extension-list .filter-extensions {
+    padding-top: 2.2em;
+    animation: slideInRight var(--animation-slow) ease-out 0.2s both;
+}
+.filter-extensions button {
+    font-size: 1.3em;
+    margin-right: 1em;
+    border-radius: 1em;
+    width: auto;
+    height: auto;
+    padding: 0.3em 0.7em;
+    background-color: var(--bg-button);
+    border: solid 1px var(--border-color);
+    color: var(--text-button);
+    transition: all var(--animation-normal) var(--bounce-timing);
+    transform: translateY(0);
+}
+.filter-extensions button:hover {
+    cursor: pointer;
+    border: solid 1px var(--red-500);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.filter-extensions button:last-child {
+    margin-right: 0;
+}
+
+.filter-extensions button:focus {
+    background-color: var(--red-700);
+    color: var(--neutral-0);
+    border: solid 1px var(--red-700);
+    outline: solid 1px var(--red-700);
+    outline-offset: 2px;
+}
+
+/* Filter button active state */
+.filter-btn.active {
+    background-color: var(--bg-button-active);
+    color: var(--text-button-active);
+    border: solid 1px var(--bg-button-active);
+}
+
+/* Extensions Grid */
+.extensions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5em;
+    margin: 2em 11.5em;
+}
+
+/* Extension Card */
+.extension-card {
+    background-color: var(--bg-card);
+    border-radius: 0.7em;
+    padding: 1.5em;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: all var(--animation-normal) var(--smooth-timing);
+    animation: cardFadeIn var(--animation-slow) ease-out both;
+    transform: translateY(0);
+}
+
+.extension-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px var(--shadow-color);
+}
+
+.extension-header {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.5em;
+}
+
+.extension-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 1em;
+    flex-shrink: 0;
+    transition: transform var(--animation-normal) var(--bounce-timing);
+}
+
+.extension-icon:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.extension-info {
+    flex: 1;
+}
+
+.extension-name {
+    font-size: 1.3em;
+    font-weight: var(--font-weight-bold);
+    margin: 0 0 0.5em 0;
+    color: var(--text-primary);
+}
+
+.extension-description {
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+    font-size: 0.95em;
+}
+
+.extension-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remove-button {
+    color: var(--red-500);
+    background-color: transparent;
+    border: solid 1px var(--red-500);
+    padding: 0.5em 1em;
+    border-radius: 1.5em;
+    cursor: pointer;
+    transition: all var(--animation-normal) var(--smooth-timing);
+    transform: scale(1);
+}
+
+.remove-button:hover {
+    background-color: var(--red-500);
+    color: var(--neutral-0);
+    outline: solid 1px var(--red-700);
+    outline-offset: 2px;
+    border: solid 1px var(--red-500);
+    transform: scale(1.05);
+    animation: glow 1.5s ease-in-out infinite;
+}
+
+.remove-button:active {
+    transform: scale(0.95);
+}
+
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+}
+
+.status-label {
+    font-size: 0.9em;
+    font-weight: var(--font-weight-medium);
+    color: var(--text-secondary);
+}
+
+/* Toggle Switch Styling */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--neutral-300);
+    transition: var(--animation-normal) var(--smooth-timing);
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: var(--animation-normal) var(--smooth-timing);
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Active state */
+input:checked + .slider {
+    background-color: var(--red-500);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Focus state */
+input:focus + .slider {
+    box-shadow: 0 0 0 2px var(--red-400);
+}
+
+/* Hover state */
+.slider:hover {
+    background-color: var(--border-color);
+}
+
+input:checked + .slider:hover {
+    background-color: var(--red-400);
+}
+
+/* Hidden template */
+#extension-template {
+    display: none;
+}
+
+/* Animation Classes */
+.card-animate-in {
+    animation: cardFadeIn var(--animation-slow) ease-out both;
+}
+
+.fade-in {
+    animation: fadeIn var(--animation-normal) ease-out;
+}
+
+.bounce-in {
+    animation: bounceIn var(--animation-slow) var(--bounce-timing);
+}
+
+.slide-in-left {
+    animation: slideInLeft var(--animation-normal) ease-out;
+}
+
+.slide-in-right {
+    animation: slideInRight var(--animation-normal) ease-out;
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes pulse {
+    from {
+        box-shadow: 0 0 0 0 var(--red-500);
+    }
+    to {
+        box-shadow: 0 0 0 4px transparent;
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-100px) scale(0.8);
+    }
+}
+
+@keyframes shake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+@keyframes toggleBounce {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes glow {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 var(--red-500);
+    }
+    50% {
+        box-shadow: 0 0 0 8px transparent;
+    }
+}
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+    .header-bar {
+        width: 95%;
+        padding: 0.8em;
+    }
+
+    .extension-list {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-left: 1em;
+        margin-right: 1em;
+        gap: 1em;
+    }
+
+    .extension-list h2 {
+        font-size: 2em;
+        margin: 0;
+    }
+
+    .extension-list .filter-extensions {
+        padding-top: 0;
+    }
+
+    .filter-extensions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5em;
+    }
+
+    .filter-extensions button {
+        font-size: 1.1em;
+        margin-right: 0;
+        padding: 0.4em 0.8em;
+    }
+
+    .extensions-grid {
+        grid-template-columns: 1fr;
+        margin: 2em 1em;
+        gap: 1em;
+    }
+
+    .extension-card {
+        padding: 1.2em;
+    }
+
+    .extension-header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 1em;
+    }
+
+    .extension-icon {
+        margin-right: 0;
+        margin-bottom: 0.8em;
+    }
+
+    .extension-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 1em;
+        min-width: 180px;
+    }
+
+    .toggle-switch {
+        justify-content: space-between;
+    }
 }
