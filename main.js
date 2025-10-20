@@ -155,6 +155,14 @@ function filterExtensions(filterType) {
     }
   });
 
+  // Add or remove footer-fixed class based on filter
+  const body = document.body;
+  if (filterType === "active" || filterType === "inactive") {
+    body.classList.add("footer-fixed");
+  } else {
+    body.classList.remove("footer-fixed");
+  }
+
   renderExtensions();
 }
 
