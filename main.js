@@ -3,7 +3,8 @@ const extensionsData = [
   {
     id: 1,
     name: "DevLens",
-    description: "Quickly inspect page layouts and visualize element boundaries.",
+    description:
+      "Quickly inspect page layouts and visualize element boundaries.",
     icon: "assets/images/logo-devlens.svg",
     status: "active",
   },
@@ -24,7 +25,8 @@ const extensionsData = [
   {
     id: 4,
     name: "JSONWizard",
-    description: "Formats, validates, and prettifies JSON responses in-browser.",
+    description:
+      "Formats, validates, and prettifies JSON responses in-browser.",
     icon: "assets/images/logo-json-wizard.svg",
     status: "active",
   },
@@ -38,21 +40,24 @@ const extensionsData = [
   {
     id: 6,
     name: "ViewportBuddy",
-    description: "Simulates various screen resolutions directly within the browser.",
+    description:
+      "Simulates various screen resolutions directly within the browser.",
     icon: "assets/images/logo-viewport-buddy.svg",
     status: "active",
   },
   {
     id: 7,
     name: "Markup Notes",
-    description: "Enables annotation and notes directly onto webpages for collaborative debugging.",
+    description:
+      "Enables annotation and notes directly onto webpages for collaborative debugging.",
     icon: "assets/images/logo-markup-notes.svg",
     status: "active",
   },
   {
     id: 8,
     name: "GridGuides",
-    description: "Overlay customizable grids and alignment guides on any webpage.",
+    description:
+      "Overlay customizable grids and alignment guides on any webpage.",
     icon: "assets/images/logo-grid-guides.svg",
     status: "inactive",
   },
@@ -80,7 +85,8 @@ const extensionsData = [
   {
     id: 12,
     name: "ConsolePlus",
-    description: "Enhanced developer console with advanced filtering and logging.",
+    description:
+      "Enhanced developer console with advanced filtering and logging.",
     icon: "assets/images/logo-console-plus.svg",
     status: "active",
   },
@@ -95,20 +101,20 @@ const extensionTemplate = document.getElementById("extension-template");
 const filterButtons = document.querySelectorAll(".filter-btn");
 
 function renderExtensions(extensionsToRender = extensions) {
-  // Add exit animation to existing cards before clearing
   const existingCards = extensionsContainer.querySelectorAll(".extension-card");
   existingCards.forEach((card, index) => {
     card.style.animationDelay = `${index * 0.05}s`;
     card.style.animation = "slideOut 0.3s ease-in-out forwards";
   });
 
-  // Wait for exit animation to complete, then render new cards
   setTimeout(() => {
     extensionsContainer.innerHTML = "";
 
     let filteredExtensions = extensionsToRender;
     if (currentFilter !== "all") {
-      filteredExtensions = extensionsToRender.filter((ext) => ext.status === currentFilter);
+      filteredExtensions = extensionsToRender.filter(
+        (ext) => ext.status === currentFilter
+      );
     }
 
     filteredExtensions.forEach((extension, index) => {
@@ -123,7 +129,6 @@ function createExtensionCard(extension, index = 0) {
 
   card.dataset.id = extension.id;
 
-  // Add staggered animation delay
   card.style.animationDelay = `${index * 0.1}s`;
   card.classList.add("card-animate-in");
 
@@ -132,7 +137,8 @@ function createExtensionCard(extension, index = 0) {
   icon.alt = `${extension.name} icon`;
 
   template.querySelector(".extension-name").textContent = extension.name;
-  template.querySelector(".extension-description").textContent = extension.description;
+  template.querySelector(".extension-description").textContent =
+    extension.description;
 
   const toggleSwitch = template.querySelector(".status-toggle");
 
@@ -155,7 +161,6 @@ function filterExtensions(filterType) {
     }
   });
 
-  // Add or remove footer-fixed class based on filter
   const body = document.body;
   if (filterType === "active" || filterType === "inactive") {
     body.classList.add("footer-fixed");
@@ -170,17 +175,14 @@ function removeExtension(extensionId) {
   const cardToRemove = document.querySelector(`[data-id="${extensionId}"]`);
 
   if (cardToRemove) {
-    // Add removal animation
     cardToRemove.style.animation = "slideOut 0.4s ease-in-out forwards";
     cardToRemove.style.transformOrigin = "center";
 
-    // Wait for animation to complete before removing from data
     setTimeout(() => {
       extensions = extensions.filter((ext) => ext.id !== parseInt(extensionId));
       renderExtensions();
     }, 400);
   } else {
-    // Fallback if card not found
     extensions = extensions.filter((ext) => ext.id !== parseInt(extensionId));
     renderExtensions();
   }
@@ -195,13 +197,11 @@ function updateExtensionStatus(extensionId, newStatus) {
 
 function setupEventListeners() {
   filterButtons.forEach((button, index) => {
-    // Add staggered animation to filter buttons
     button.style.animationDelay = `${index * 0.1}s`;
 
     button.addEventListener("click", (e) => {
       const filter = e.target.dataset.filter;
 
-      // Add click animation
       e.target.style.transform = "scale(0.95)";
       setTimeout(() => {
         e.target.style.transform = "";
@@ -216,7 +216,6 @@ function setupEventListeners() {
       const card = e.target.closest(".extension-card");
       const extensionId = card.dataset.id;
 
-      // Add shake animation before removal
       card.style.animation = "shake 0.5s ease-in-out";
       setTimeout(() => {
         removeExtension(extensionId);
@@ -232,7 +231,6 @@ function setupEventListeners() {
 
       const newStatus = e.target.checked ? "active" : "inactive";
 
-      // Add bounce animation to the toggle
       const slider = toggleSwitch.nextElementSibling;
       slider.style.animation = "toggleBounce 0.4s ease-out";
       setTimeout(() => {
@@ -262,7 +260,9 @@ class ThemeManager {
   }
 
   getSystemPreference() {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
   }
 
   setTheme(theme) {
@@ -313,11 +313,13 @@ class ThemeManager {
     });
 
     // Listen for system theme changes
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-      if (!this.getStoredTheme()) {
-        this.setTheme(e.matches ? "dark" : "light");
-      }
-    });
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (e) => {
+        if (!this.getStoredTheme()) {
+          this.setTheme(e.matches ? "dark" : "light");
+        }
+      });
 
     // Keyboard accessibility
     this.darkModeIcon.addEventListener("keydown", (e) => {
@@ -329,9 +331,7 @@ class ThemeManager {
   }
 }
 
-// Animation utility functions
 function addPageLoadAnimations() {
-  // Animate header elements
   const header = document.querySelector("#header-container");
   if (header) {
     header.style.opacity = "0";
@@ -343,7 +343,6 @@ function addPageLoadAnimations() {
     }, 100);
   }
 
-  // Animate extension list title and filters
   const extensionList = document.querySelector(".extension-list");
   if (extensionList) {
     const title = extensionList.querySelector("h2");
